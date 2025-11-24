@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation Guide - Pine Ridge Resort & Spa</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        .documentation-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .doc-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #1a472a;
+            padding-bottom: 1rem;
+        }
+        
+        .doc-header h1 {
+            color: #1a472a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .doc-header .version {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section h2 {
+            color: #1a472a;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .requirement-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #1a472a;
+        }
+        
+        .requirement-card h4 {
+            color: #1a472a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #2e8b57;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #1a472a;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        
+        .file-structure {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+        }
+        
+        .troubleshooting-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+        
+        .troubleshooting-item h5 {
+            color: #dc3545;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="documentation-container">
+        <div class="doc-header">
+            <h1>Pine Ridge Resort & Spa</h1>
+            <div class="version">Installation Guide - Version 1.0</div>
+            <p>Complete setup and installation instructions</p>
+        </div>
+
+        <div class="section">
+            <h2>System Requirements</h2>
+            <p>Before installing the Pine Ridge Resort Management System, ensure your server meets the following requirements:</p>
+            
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <h4>Server Requirements</h4>
+                    <ul>
+                        <li>PHP 7.4 or higher</li>
+                        <li>MySQL 5.7 or higher / MariaDB 10.2 or higher</li>
+                        <li>Apache 2.4 or Nginx</li>
+                        <li>SSL Certificate (Recommended)</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4>PHP Extensions</h4>
+                    <ul>
+                        <li>PDO MySQL Extension</li>
+                        <li>JSON Extension</li>
+                        <li>MBString Extension</li>
+                        <li>OpenSSL Extension</li>
+                        <li>CURL Extension</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4>Recommended</h4>
+                    <ul>
+                        <li>Redis (for caching)</li>
+                        <li>Composer (for dependencies)</li>
+                        <li>Git (for deployment)</li>
+                        <li>SMTP Server (for emails)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Installation Steps</h2>
+            
+            <div class="step">
+                <h3><span class="step-number">1</span> Download and Upload</h3>
+                <p>Download the Pine Ridge Resort system files and upload them to your web server.</p>
+                
+                <div class="info">
+                    <strong>Note:</strong> You can upload via FTP, SFTP, or use your hosting provider's file manager.
+                </div>
+                
+                <p><strong>Upload to:</strong> <code>public_html/</code> or your desired directory</p>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">2</span> Set File Permissions</h3>
+                <p>Set the correct file permissions for the following directories:</p>
+                
+                <div class="code-block">
+# Set directory permissions
+chmod 755 backend/config/
+chmod 755 backend/logs/
+chmod 755 uploads/
+chmod 755 logs/
+
+# Set file permissions
+chmod 644 backend/config/config.php
+chmod 644 .htaccess
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">3</span> Create Database</h3>
+                <p>Create a MySQL database for the system:</p>
+                
+                <div class="code-block">
+-- Using phpMyAdmin or MySQL command line
+CREATE DATABASE pine_ridge_resort 
+CHARACTER SET utf8mb4 
+COLLATE utf8mb4_unicode_ci;
+                </div>
+                
+                <p>Note the following database details:</p>
+                <ul>
+                    <li>Database Name</li>
+                    <li>Database Username</li>
+                    <li>Database Password</li>
+                    <li>Database Host (usually localhost)</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">4</span> Run Installation Wizard</h3>
+                <p>Open your web browser and navigate to the installation script:</p>
+                
+                <div class="code-block">
+https://yourdomain.com/install.php
+                </div>
+                
+                <p>The installation wizard will guide you through:</p>
+                <ol>
+                    <li>System requirements check</li>
+                    <li>Database configuration</li>
+                    <li>Administrator account creation</li>
+                    <li>Initial setup completion</li>
+                </ol>
+                
+                <div class="warning">
+                    <strong>Security Note:</strong> Delete the install.php file after successful installation.
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">5</span> Configure Web Server</h3>
+                
+                <h4>Apache Configuration (.htaccess)</h4>
+                <p>The system includes an .htaccess file for URL rewriting. Ensure mod_rewrite is enabled:</p>
+                <div class="code-block">
+# Enable mod_rewrite
+sudo a2enmod rewrite
+sudo systemctl restart apache2
+                </div>
+                
+                <h4>Nginx Configuration</h4>
+                <p>Add the following to your Nginx server block:</p>
+                <div class="code-block">
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+location /backend/ {
+    try_files $uri $uri/ /backend/api/index.php?$query_string;
+}
+                </div>
+            </div>
+            
+            <div class="step">
+                <h3><span class="step-number">6</span> Configure Email Settings</h3>
+                <p>Update email configuration in the admin panel:</p>
+                
+                <ol>
+                    <li>Log in to the admin dashboard</li>
+                    <li>Go to Settings → Email Configuration</li>
+                    <li>Enter your SMTP settings:
+                        <ul>
+                            <li>SMTP Host</li>
+                            <li>SMTP Port (usually 587)</li>
+                            <li>SMTP Username</li>
+                            <li>SMTP Password</li>
+                            <li>From Email Address</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>File Structure</h2>
+            <div class="file-structure">
+pine-ridge-resort/
+├── index.html                 # Main website
+├── login.html                 # Login page
+├── register.html              # Registration page
+├── admin-dashboard.html       # Admin panel
+├── staff-panel.html           # Staff panel
+├── profile.html               # User profile
+├── bookings.html              # Bookings management
+├── reports.html               # Reports dashboard
+├── install.php                # Installation wizard
+│
+├── styles/                    # CSS files
+│   ├── main.css
+│   ├── responsive.css
+│   ├── admin.css
+│   └── auth.css
+│
+├── scripts/                   # JavaScript files
+│   ├── main.js
+│   ├── auth.js
+│   ├── admin.js
+│   ├── staff.js
+│   ├── profile.js
+│   ├── reports.js
+│   ├── booking.js
+│   └── validation.js
+│
+├── backend/                   # PHP backend
+│   ├── config/
+│   │   ├── config.php
+│   │   └── database.php
+│   ├── models/               # Data models
+│   ├── controllers/          # Business logic
+│   ├── api/                  # API endpoints
+│   ├── middleware/           # Authentication & validation
+│   └── utils/                # Utility classes
+│
+├── database/                  # Database files
+│   ├── schema.sql
+│   └── sample_data.sql
+│
+├── documentation/             # Documentation
+│   ├── installation_guide.html
+│   ├── user_manual.html
+│   └── technical_docs.html
+│
+├── uploads/                   # File uploads directory
+├── logs/                      # System logs
+└── .htaccess                  # Apache configuration
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Configuration</h2>
+            
+            <h3>Environment Configuration</h3>
+            <p>Edit <code>backend/config/config.php</code> to configure your environment:</p>
+            
+            <div class="code-block">
+// Application Settings
+define('APP_NAME', 'Pine Ridge Resort & Spa');
+define('APP_URL', 'https://yourdomain.com');
+
+// Database Configuration
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'pine_ridge_resort');
+define('DB_USER', 'your_username');
+define('DB_PASS', 'your_password');
+
+// Security Settings
+define('PEPPER', 'your-secret-pepper-string');
+
+// Email Configuration
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_PORT', 587);
+define('SMTP_USER', 'noreply@yourdomain.com');
+define('SMTP_PASS', 'your-email-password');
+
+// M-Pesa Configuration (Kenya)
+define('MPESA_ENV', 'sandbox'); // sandbox or production
+define('MPESA_CONSUMER_KEY', 'your-consumer-key');
+define('MPESA_CONSUMER_SECRET', 'your-consumer-secret');
+            </div>
+            
+            <h3>Cron Jobs</h3>
+            <p>Set up the following cron jobs for automated tasks:</p>
+            
+            <div class="code-block">
+# Clean old audit logs (daily)
+0 2 * * * /usr/bin/php /path/to/your/site/backend/cron/cleanup.php
+
+# Send booking reminders (daily)
+0 9 * * * /usr/bin/php /path/to/your/site/backend/cron/reminders.php
+
+# Generate daily reports (daily)
+0 6 * * * /usr/bin/php /path/to/your/site/backend/cron/reports.php
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Troubleshooting</h2>
+            
+            <div class="troubleshooting-item">
+                <h5>Installation Wizard Not Working</h5>
+                <p><strong>Solution:</strong> Check PHP version and ensure all required extensions are installed. Verify file permissions.</p>
+            </div>
+            
+            <div class="troubleshooting-item">
+                <h5>Database Connection Error</h5>
+                <p><strong>Solution:</strong> Verify database credentials in config.php. Ensure database server is running.</p>
+            </div>
+            
+            <div class="troubleshooting-item">
+                <h5>404 Errors on Pages</h5>
+                <p><strong>Solution:</strong> Enable mod_rewrite for Apache or configure URL rewriting in Nginx.</p>
+            </div>
+            
+            <div class="troubleshooting-item">
+                <h5>Email Not Sending</h5>
+                <p><strong>Solution:</strong> Check SMTP configuration in admin panel. Verify firewall settings for outbound email.</p>
+            </div>
+            
+            <div class="troubleshooting-item">
+                <h5>File Upload Issues</h5>
+                <p><strong>Solution:</strong> Check uploads directory permissions. Verify PHP upload limits in php.ini.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Security Recommendations</h2>
+            
+            <div class="warning">
+                <strong>Important Security Steps:</strong>
+            </div>
+            
+            <ol>
+                <li>Change default admin password after installation</li>
+                <li>Set proper file permissions (755 for directories, 644 for files)</li>
+                <li>Use SSL/HTTPS for all connections</li>
+                <li>Regularly update the system and dependencies</li>
+                <li>Implement regular backups</li>
+                <li>Use strong database passwords</li>
+                <li>Limit admin access to trusted personnel</li>
+                <li>Monitor audit logs regularly</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>Support</h2>
+            
+            <p>If you encounter any issues during installation:</p>
+            
+            <ul>
+                <li><strong>Documentation:</strong> Check the technical documentation</li>
+                <li><strong>Error Logs:</strong> Check <code>backend/logs/</code> for error details</li>
+                <li><strong>Community:</strong> Visit our support forum</li>
+                <li><strong>Email:</strong> support@pineridgeresort.com</li>
+            </ul>
+            
+            <div class="info">
+                <strong>Note:</strong> Always backup your database and files before making any major changes or updates.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

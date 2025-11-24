@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Documentation - Pine Ridge Resort and Spa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a6d3b, #2e8b57);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            background-color: #f0f8f4;
+            border-bottom: 3px solid #2e8b57;
+            color: #2e8b57;
+        }
+        
+        .tab:hover:not(.active) {
+            background-color: #f9f9f9;
+        }
+        
+        .content-section {
+            display: none;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        h2 {
+            color: #2e8b57;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        h3 {
+            color: #3a3a3a;
+            margin: 25px 0 15px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .card {
+            background-color: #f9f9f9;
+            border-left: 4px solid #2e8b57;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .team-member {
+            background-color: #f0f8f4;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .team-member h4 {
+            color: #2e8b57;
+            margin-bottom: 5px;
+        }
+        
+        .team-member p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .requirement-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .requirement-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 4px solid #2e8b57;
+        }
+        
+        .requirement-card h4 {
+            color: #2e8b57;
+            margin-bottom: 10px;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .tech-item {
+            background-color: #e8f5e9;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #2e8b57;
+            font-weight: 500;
+        }
+        
+        .diagram-placeholder {
+            background-color: #f0f0f0;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px dashed #ccc;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #666;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                text-align: center;
+                border-bottom: 1px solid #eaeaea;
+            }
+            
+            .tab.active {
+                border-bottom: 3px solid #2e8b57;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Pine Ridge Resort & Spa</div>
+            <h1>Technical Documentation</h1>
+            <p>Hotel Booking and Management System</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="nav-tabs">
+            <div class="tab active" data-target="overview">Project Overview</div>
+            <div class="tab" data-target="requirements">Requirements</div>
+            <div class="tab" data-target="architecture">System Architecture</div>
+            <div class="tab" data-target="database">Database Design</div>
+            <div class="tab" data-target="modules">System Modules</div>
+            <div class="tab" data-target="security">Security</div>
+            <div class="tab" data-target="deployment">Deployment</div>
+        </div>
+        
+        <section id="overview" class="content-section active">
+            <h2>Project Overview</h2>
+            <p>The Pine Ridge Resort and Spa Hotel Management System is a comprehensive web-based application designed to streamline hotel operations, enhance guest experiences, and facilitate data-driven decision making for management.</p>
+            
+            <div class="card">
+                <h3>Primary Objectives</h3>
+                <ul>
+                    <li>Automate and streamline hotel booking and reservation processes</li>
+                    <li>Improve guest experience through efficient check-in/check-out procedures</li>
+                    <li>Maintain accurate records for management decision-making</li>
+                    <li>Provide real-time room availability and management</li>
+                    <li>Facilitate secure payment processing</li>
+                    <li>Generate comprehensive reports for business analysis</li>
+                </ul>
+            </div>
+            
+            <h3>Development Team</h3>
+            <div class="team-grid">
+                <div class="team-member">
+                    <h4>Tracy Ohowa</h4>
+                    <p>User Authentication</p>
+                </div>
+                <div class="team-member">
+                    <h4>Corban Chogo</h4>
+                    <p>Room Management</p>
+                </div>
+                <div class="team-member">
+                    <h4>Almah Namarome</h4>
+                    <p>Booking/Reservation</p>
+                </div>
+                <div class="team-member">
+                    <h4>Clive Cyusa</h4>
+                    <p>Payments/Billings</p>
+                </div>
+                <div class="team-member">
+                    <h4>Sandra Cheruto</h4>
+                    <p>Guest Management</p>
+                </div>
+                <div class="team-member">
+                    <h4>David Nguimbi</h4>
+                    <p>Staff Management</p>
+                </div>
+                <div class="team-member">
+                    <h4>Frankline Muchui</h4>
+                    <p>Reports</p>
+                </div>
+                <div class="team-member">
+                    <h4>Shirleen Kosgei</h4>
+                    <p>Notification System</p>
+                </div>
+                <div class="team-member">
+                    <h4>Sandra Muriuki</h4>
+                    <p>Admin Dashboard</p>
+                </div>
+                <div class="team-member">
+                    <h4>Ezekiel Onyango</h4>
+                    <p>Feedback/Reviews</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="requirements" class="content-section">
+            <h2>System Requirements</h2>
+            
+            <h3>Functional Requirements</h3>
+            <div class="requirement-list">
+                <div class="requirement-card">
+                    <h4>User Authentication</h4>
+                    <ul>
+                        <li>User registration and login</li>
+                        <li>Password recovery</li>
+                        <li>Role-based access control</li>
+                        <li>Session management</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4>Room Management</h4>
+                    <ul>
+                        <li>Room inventory management</li>
+                        <li>Room status tracking</li>
+                        <li>Room categorization</li>
+                        <li>Pricing management</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4>Booking & Reservation</h4>
+                    <ul>
+                        <li>Online room booking</li>
+                        <li>Reservation management</li>
+                        <li>Availability checking</li>
+                        <li>Booking modifications</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4>Payment Processing</h4>
+                    <ul>
+                        <li>Secure payment gateway integration</li>
+                        <li>Invoice generation</li>
+                        <li>Payment history</li>
+                        <li>Refund processing</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4>Guest Management</h4>
+                    <ul>
+                        <li>Guest profile management</li>
+                        <li>Check-in/check-out processes</li>
+                        <li>Guest history tracking</li>
+                        <li>Special requests handling</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4>Reporting</h4>
+                    <ul>
+                        <li>Occupancy reports</li>
+                        <li>Revenue reports</li>
+                        <li>Guest analytics</li>
+                        <li>Performance metrics</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Non-Functional Requirements</h3>
+            <div class="requirement-list">
+                <div class="requirement-card">
+                    <h4>Performance & Scalability</h4>
+                    <ul>
+                        <li>Response time under 3 seconds for critical operations</li>
+                        <li>Support for 100+ concurrent users</li>
+                        <li>Efficient database queries</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4>Security</h4>
+                    <ul>
+                        <li>Data encryption</li>
+                        <li>SQL injection prevention</li>
+                        <li>Secure authentication</li>
+                        <li>Audit trails</li>
+                    </ul>
+                </div>
+                
+                <div class="requirement-card">
+                    <h4>Reliability & Availability</h4>
+                    <ul>
+                        <li>99.5% uptime</li>
+                        <li>Data backup and recovery</li>
+                        <li>Error handling and logging</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="architecture" class="content-section">
+            <h2>System Architecture</h2>
+            <p>The Pine Ridge Resort and Spa system follows a three-tier architecture with clear separation between presentation, business logic, and data layers.</p>
+            
+            <h3>Architecture Overview</h3>
+            <div class="diagram-placeholder">
+                [System Architecture Diagram - Three Tier Architecture]
+            </div>
+            
+            <h3>Technology Stack</h3>
+            <div class="card">
+                <h4>Frontend</h4>
+                <div class="tech-stack">
+                    <span class="tech-item">HTML5</span>
+                    <span class="tech-item">CSS3</span>
+                    <span class="tech-item">JavaScript</span>
+                    <span class="tech-item">Bootstrap</span>
+                    <span class="tech-item">FontAwesome</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h4>Backend</h4>
+                <div class="tech-stack">
+                    <span class="tech-item">PHP</span>
+                    <span class="tech-item">Laravel Framework</span>
+                    <span class="tech-item">RESTful APIs</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h4>Database</h4>
+                <div class="tech-stack">
+                    <span class="tech-item">MySQL</span>
+                    <span class="tech-item">Database Normalization</span>
+                    <span class="tech-item">Stored Procedures</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h4>Integration & Payment</h4>
+                <div class="tech-stack">
+                    <span class="tech-item">M-Pesa API</span>
+                    <span class="tech-item">Email SMTP</span>
+                    <span class="tech-item">SMS Gateway</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="database" class="content-section">
+            <h2>Database Design</h2>
+            <p>The database is designed following normalization principles to eliminate data redundancy and ensure data integrity.</p>
+            
+            <h3>Key Entities</h3>
+            <ul>
+                <li><strong>Users</strong> - Stores user information including guests, staff, and administrators</li>
+                <li><strong>Rooms</strong> - Contains room details, types, amenities, and pricing</li>
+                <li><strong>Bookings</strong> - Manages reservation information and status</li>
+                <li><strong>Payments</strong> - Records all financial transactions</li>
+                <li><strong>Guests</strong> - Stores guest profiles and preferences</li>
+                <li><strong>Staff</strong> - Contains employee information and roles</li>
+                <li><strong>Reviews</strong> - Manages guest feedback and ratings</li>
+                <li><strong>AuditLogs</strong> - Tracks system activities for security</li>
+            </ul>
+            
+            <h3>Database Schema</h3>
+            <div class="diagram-placeholder">
+                [Entity Relationship Diagram - Database Schema]
+            </div>
+            
+            <h3>Normalization</h3>
+            <p>The database design follows Third Normal Form (3NF) to minimize data redundancy and dependency:</p>
+            <ul>
+                <li>All non-prime attributes are fully functional dependent on primary keys</li>
+                <li>No transitive dependencies exist between non-prime attributes</li>
+                <li>Separate tables for related entities with proper foreign key relationships</li>
+            </ul>
+        </section>
+        
+        <section id="modules" class="content-section">
+            <h2>System Modules</h2>
+            
+            <div class="card">
+                <h3>Authentication Module</h3>
+                <p>Handles user registration, login, password management, and role-based access control. Implements secure password hashing and session management.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Room Management Module</h3>
+                <p>Manages room inventory, categories, pricing, and availability. Allows staff to update room status and manage room attributes.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Booking & Reservation Module</h3>
+                <p>Core module for handling room reservations, availability checking, booking modifications, and cancellation processes.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Payment Processing Module</h3>
+                <p>Integrates with payment gateways (including M-Pesa), handles invoice generation, payment tracking, and refund processing.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Guest Management Module</h3>
+                <p>Manages guest profiles, check-in/check-out processes, guest history, and special requests handling.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Staff Management Module</h3>
+                <p>Handles employee records, role assignments, scheduling, and performance tracking.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Reporting Module</h3>
+                <p>Generates comprehensive reports including occupancy rates, revenue analysis, guest statistics, and performance metrics.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Notification Module</h3>
+                <p>Sends automated notifications via email and SMS for bookings, confirmations, reminders, and promotions.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Admin Dashboard</h3>
+                <p>Provides administrators with an overview of hotel operations, key metrics, and quick access to management functions.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Feedback & Reviews Module</h3>
+                <p>Collects and manages guest feedback, ratings, and reviews to help improve service quality.</p>
+            </div>
+        </section>
+        
+        <section id="security" class="content-section">
+            <h2>Security Implementation</h2>
+            
+            <h3>Authentication & Authorization</h3>
+            <ul>
+                <li>Password hashing using bcrypt algorithm</li>
+                <li>Role-based access control (RBAC) with multiple user levels</li>
+                <li>Session management with secure timeout policies</li>
+                <li>Two-factor authentication (2FA) for administrative accounts</li>
+            </ul>
+            
+            <h3>Data Protection</h3>
+            <ul>
+                <li>Encryption of sensitive data at rest and in transit</li>
+                <li>Use of prepared statements to prevent SQL injection</li>
+                <li>Input validation and sanitization</li>
+                <li>Cross-site scripting (XSS) protection</li>
+            </ul>
+            
+            <h3>Audit & Compliance</h3>
+            <ul>
+                <li>Comprehensive audit trails tracking user activities</li>
+                <li>Logging of critical system events</li>
+                <li>Regular security assessments and penetration testing</li>
+                <li>Compliance with data protection regulations</li>
+            </ul>
+        </section>
+        
+        <section id="deployment" class="content-section">
+            <h2>Deployment & Maintenance</h2>
+            
+            <h3>Deployment Strategy</h3>
+            <p>The system will be deployed on a cloud hosting platform with the following components:</p>
+            <ul>
+                <li>Web server: Apache/Nginx</li>
+                <li>Database server: MySQL</li>
+                <li>Application server: PHP with Laravel</li>
+                <li>Load balancer for high availability</li>
+                <li>SSL certificate for secure connections</li>
+            </ul>
+            
+            <h3>Installation Process</h3>
+            <ol>
+                <li>Server environment setup (PHP, MySQL, Web Server)</li>
+                <li>Database creation and schema import</li>
+                <li>Application files deployment</li>
+                <li>Configuration setup (database connections, API keys)</li>
+                <li>Testing and verification</li>
+                <li>Go-live and monitoring</li>
+            </ol>
+            
+            <h3>Maintenance Plan</h3>
+            <ul>
+                <li>Regular security updates and patches</li>
+                <li>Database backups and recovery procedures</li>
+                <li>Performance monitoring and optimization</li>
+                <li>User support and training</li>
+                <li>Feature updates and enhancements</li>
+            </ul>
+            
+            <h3>System Requirements for Deployment</h3>
+            <div class="card">
+                <h4>Server Requirements</h4>
+                <ul>
+                    <li>PHP 7.4 or higher</li>
+                    <li>MySQL 5.7 or higher</li>
+                    <li>Web server (Apache/Nginx)</li>
+                    <li>SSL certificate</li>
+                    <li>Minimum 2GB RAM</li>
+                    <li>20GB storage</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Pine Ridge Resort and Spa Hotel Management System &copy; 2025</p>
+            <p>Technical Documentation - Version 1.0</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const sections = document.querySelectorAll('.content-section');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    
+                    // Remove active class from all tabs and sections
+                    tabs.forEach(t => t.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to current tab and section
+                    this.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
