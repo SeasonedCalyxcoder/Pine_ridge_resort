@@ -32,3 +32,5 @@ server/.pnp.js
 
 # Ignore audit log
 server/audit.log
+
+invoices/

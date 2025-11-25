@@ -9,6 +9,58 @@ const MyBookingsPage = () => {
   const [editId, setEditId] = useState(null);
   const [editForm, setEditForm] = useState({ start_date: '', end_date: '', guests: 1 });
   // Helper to format date for input type="date"
+  const [actionLoading, setActionLoading] = useState(null);
+    // Simulate payment
+    const handleSimulatePayment = async (id) => {
+      setActionLoading(id + '-simulate');
+      try {
+        const res = await axios.post(`/api/booking/${id}/simulate-payment`, {}, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        });
+        setBookings(bookings.map(b => b.id === id ? { ...b, payment_status: res.data.payment_status } : b));
+        alert(res.data.message);
+      } catch {
+        alert('Payment simulation failed.');
+      }
+      setActionLoading(null);
+    };
+
+    // Download invoice
+    const handleDownloadInvoice = async (id) => {
+      setActionLoading(id + '-invoice');
+      try {
+        const res = await axios.get(`/api/booking/${id}/invoice`, {
+          responseType: 'blob',
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        });
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `invoice_${id}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      } catch {
+        alert('Failed to download invoice.');
+      }
+      setActionLoading(null);
+    };
+
+    // Refund payment
+    const handleRefund = async (id) => {
+      const reason = window.prompt('Enter refund reason (optional):');
+      setActionLoading(id + '-refund');
+      try {
+        const res = await axios.post(`/api/booking/${id}/refund`, { reason }, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        });
+        setBookings(bookings.map(b => b.id === id ? { ...b, payment_status: res.data.payment_status } : b));
+        alert(res.data.message);
+      } catch (err) {
+        alert(err.response?.data?.error || 'Refund failed.');
+      }
+      setActionLoading(null);
+    };
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
     // Handles both yyyy-MM-dd and ISO string
@@ -135,19 +187,45 @@ const MyBookingsPage = () => {
               <p className="text-sm text-gray-700">Check-out: <span className="font-medium">{booking.end_date}</span></p>
               <p className="text-sm text-gray-700">Guests: <span className="font-medium">{booking.guests}</span></p>
               <p className="text-sm text-gray-700">Status: <span className="font-medium">{booking.status}</span></p>
-              <div className="flex gap-2 mt-2">
+              <p className="text-sm text-gray-700">Payment Status: <span className="font-medium">{booking.payment_status || 'pending'}</span></p>
+              <div className="flex flex-wrap gap-2 mt-2">
                 <button
                   className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-700 transition"
                   onClick={() => openEdit(booking)}
+                  disabled={actionLoading}
                 >
                   Edit Booking
                 </button>
                 <button
                   className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-700 transition"
                   onClick={() => handleCancel(booking.id)}
+                  disabled={actionLoading}
                 >
                   Cancel Booking
                 </button>
+                <button
+                  className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-700 transition"
+                  onClick={() => handleSimulatePayment(booking.id)}
+                  disabled={actionLoading || booking.payment_status === 'paid' || booking.payment_status === 'refunded'}
+                >
+                  {actionLoading === booking.id + '-simulate' ? 'Processing...' : 'Simulate Payment'}
+                </button>
+                <button
+                  className="bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-700 transition"
+                  onClick={() => handleDownloadInvoice(booking.id)}
+                  disabled={actionLoading}
+                >
+                  {actionLoading === booking.id + '-invoice' ? 'Downloading...' : 'Download Invoice'}
+                </button>
+                {booking.payment_status === 'paid' && (
+                  <button
+                    className="bg-purple-500 text-white px-4 py-1 rounded hover:bg-purple-700 transition"
+                    onClick={() => handleRefund(booking.id)}
+                    disabled={actionLoading}
+                  >
+                    {actionLoading === booking.id + '-refund' ? 'Processing...' : 'Refund Payment'}
+                  </button>
+                )}
               </div>
             </>
           )}
