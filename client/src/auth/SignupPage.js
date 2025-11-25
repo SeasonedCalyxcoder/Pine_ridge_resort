@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
+import axios from 'axios';
 
 const SignupPage = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('Guest'); // default role
   const [error, setError] = useState('');
   const { setUser } = useAuth();
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setError('');
-
-    // Simulate account creation
-    setUser({ email, role });
-
-    // Redirect based on role
-    navigate(role === 'Admin' ? '/admin/dashboard' : '/bookings');
+    try {
+      const response = await axios.post('/api/auth/register', {
+        username,
+        password,
+        role
+      });
+      setUser(null); // Do not log in automatically
+      navigate('/login'); // Redirect to login page after signup
+    } catch (err) {
+      setError(err.response?.data?.error || 'Signup failed');
+    }
   };
 
   return (
@@ -27,10 +33,10 @@ const SignupPage = () => {
         <h2 className="text-3xl font-serif text-[#2C3E50] mb-6 text-center">Create Your Account</h2>
         <form onSubmit={handleSignup} className="space-y-4">
           <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#8E44AD]"
             required
           />

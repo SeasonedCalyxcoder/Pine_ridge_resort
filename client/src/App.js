@@ -4,6 +4,9 @@ import { AuthProvider, useAuth } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import LoginPage from './auth/LoginPage';
 import SignupPage from './auth/SignupPage';
+import PasswordResetRequestPage from './auth/PasswordResetRequestPage';
+import PasswordResetPage from './auth/PasswordResetPage';
+import TwoFAPage from './auth/TwoFAPage';
 import BookingPage from './pages/BookingPage';
 import MyBookingsPage from './pages/MyBookingsPage';
 import AdminDashboard from './pages/AdminDashboard';
@@ -16,6 +19,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove JWT token
     setUser(null);
     navigate('/login');
   };
@@ -79,36 +83,46 @@ const Navbar = () => {
   );
 };
 
+
+function AppContent() {
+  const { user } = useAuth();
+  return (
+    <>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/reset-password" element={<PasswordResetRequestPage />} />
+        <Route path="/set-password" element={<PasswordResetPage />} />
+        <Route path="/2fa" element={<TwoFAPage />} />
+        <Route path="/" element={user ? <HomePage /> : <LoginPage />} />
+        <Route path="/book" element={user ? <BookingPage /> : <LoginPage />} />
+        <Route path="/bookings" element={user ? <MyBookingsPage /> : <LoginPage />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRoles={['Admin']}>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="dashboard" element={<AdminDashboard />} />
+        </Route>
+      </Routes>
+      <footer className="bg-[#2C3E50] text-white py-4 px-4 text-center mt-12 text-sm">
+        <p>&copy; 2025 Pine Ridge Resort & Spa. All rights reserved.</p>
+        <p>Contact: info@pineridgehotel.com | +254 712 345678</p>
+      </footer>
+    </>
+  );
+}
+
 function App() {
   return (
     <AuthProvider>
       <Router>
         <div className="font-sans">
           <Navbar />
-
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/book" element={<BookingPage />} />
-            <Route path="/bookings" element={<MyBookingsPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute allowedRoles={['Admin']}>
-                  <AdminLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route path="dashboard" element={<AdminDashboard />} />
-            </Route>
-          </Routes>
-
-          <footer className="bg-[#2C3E50] text-white py-4 px-4 text-center mt-12 text-sm">
-            <p>&copy; 2025 Pine Ridge Resort & Spa. All rights reserved.</p>
-            <p>Contact: info@pineridgehotel.com | +254 712 345678</p>
-          </footer>
+          <AppContent />
         </div>
       </Router>
     </AuthProvider>
